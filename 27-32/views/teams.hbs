@@ -1,0 +1,20 @@
+<div id="left">
+  <table id="teams" border="1">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Kaupunki</th>
+        <th>Perustamisvuosi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each teams}}
+        <tr>
+          <td><a href="#" class="team-name" data-id="{{Id}}">{{Nimi}}</a></td>
+          <td>{{Kaupunki}}</td>
+          <td>{{Perustamisvuosi}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

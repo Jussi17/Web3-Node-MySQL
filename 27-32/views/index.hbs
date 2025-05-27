@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web-Ohjelmointi 3, 27-32</title>
+  <style>
+    body { margin: 0; }
+    #pageHeader {
+      background-color: lightblue;
+      padding: 15px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    #headerText {
+      flex: 1;
+      text-align: right;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    #choose {
+      margin-left: 10px;
+    }
+    #mainContent {
+      display: flex;
+      margin: 15px 0 0 0;
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #left, #mainArticle, #right {
+      background-color: lightblue;
+      padding: 15px;
+      min-height: 150px;
+    }
+    #left {
+      flex: 1;
+      max-width: 220px;
+    }
+    #mainArticle {
+      flex: 2;
+      min-width: 300px;
+      text-align: left;
+    }
+    #right {
+      flex: 1.2;
+      min-width: 220px;
+    }
+    #pageFooter {
+      background-color: lightblue;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    a { display: block; margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <div id="pageHeader">
+    <div id="headerText">Welcome to football pages!</div>
+    <select id="choose">
+      {{#each choices}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div id="mainContent">
+    <div id="left">
+      <a href="#" id="leagueTableLink">League table</a>
+      <a href="#" id="playersAndTeamsLink">Players and teams</a>
+      <a href="#" id="infoAboutPlayersLink">Information about players</a>
+    </div>
+    <div id="mainArticle">
+      Click one of the links on the left
+    </div>
+    <div id="right">
+      {{#if events}}
+        <div id="siteAds">
+          <h3>Next events</h3>
+          <ul id="events">
+            {{#each events}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+
+  <div id="pageFooter">Contact information</div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(function() {
+    {{#unless events}}
+      $("#right").load("/events");
+    {{/unless}}
+
+    $("#leagueTableLink").click(function(e) {
+      e.preventDefault();
+      $("#mainArticle").load("/leaguetable");
+      $("#right").load("/events");
+    });
+
+    $("#playersAndTeamsLink").click(function(e) {
+      e.preventDefault();
+      $("#mainArticle").load("/playersandteams");
+      $("#right").load("/events"); 
+    });
+
+    $("#infoAboutPlayersLink").click(function(e) {
+      e.preventDefault();
+      $("#mainArticle").load("/teams", function() {
+        $("#mainArticle").off("click", ".team-name").on("click", ".team-name", function(e) {
+          e.preventDefault();
+          const teamId = $(this).data("id");
+          $("#right").load("/players/" + teamId);
+        });
+      });
+      $("#right").html("");
+    });
+  });
+</script>
+</body>
+</html>

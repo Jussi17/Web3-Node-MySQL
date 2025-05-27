@@ -1,0 +1,32 @@
+<div id="left">
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Joukkue</th>
+        <th>Kaupunki</th>
+        <th>Perustamisvuosi</th>
+        <th>Ottelut</th>
+        <th>Voitot</th>
+        <th>Tappiot</th>
+        <th>Tasapelit</th>
+        <th>Maaliero</th>
+        <th>Pisteet</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each table}}
+        <tr>
+          <td>{{joukkue}}</td>
+          <td>{{kaupunki}}</td>
+          <td>{{perustamisvuosi}}</td>
+          <td>{{ottelut}}</td>
+          <td>{{voitot}}</td>
+          <td>{{tappiot}}</td>
+          <td>{{tasapelit}}</td>
+          <td>{{maaliero}}</td>
+          <td>{{pisteet}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
